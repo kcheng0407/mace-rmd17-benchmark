@@ -49,11 +49,11 @@ data/rmd17/
 checkpoints/
 *.model
 
-# Results (keep for reproduction reference)
-# results/
+# Results (can be regenerated)
+results/
 
-# Logs (keep for training reference)
-# logs/
+# Logs
+logs/
 
 # OS
 .DS_Store
