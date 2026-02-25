@@ -12,9 +12,18 @@ The revised MD17 (rMD17) dataset contains 10 molecules with energies and forces 
 
 ## Target Results (from Paper)
 
-For Ethanol molecule:
-- Energy MAE: 0.4 meV (total)
-- Forces MAE: 2.1 meV/Å
+Results from MACE paper Table 2 (Energy E in meV, Forces F in meV/Å):
+
+![MACE rMD17 Results](assets/mace_rmd17_results.png)
+
+**Key targets for N_train=1000:**
+| Molecule | Energy MAE (meV) | Forces MAE (meV/Å) |
+|----------|------------------|---------------------|
+| Aspirin | 2.2 | 6.6 |
+| Ethanol | 0.4 | 2.1 |
+| Benzene | 0.4 | 0.3 |
+| Toluene | 0.5 | 1.5 |
+| ... | ... | ... |
 
 ## Molecules
 
