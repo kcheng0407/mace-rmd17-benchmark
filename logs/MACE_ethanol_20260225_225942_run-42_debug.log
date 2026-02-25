@@ -1,0 +1,315 @@
+2026-02-25 22:59:44.144 INFO: ===========VERIFYING SETTINGS===========
+2026-02-25 22:59:44.144 INFO: Stage Two is activated as start_stage_two was defined
+2026-02-25 22:59:44.144 INFO: MACE version: 0.3.14
+2026-02-25 22:59:44.144 DEBUG: Configuration: Namespace(config=None, name='MACE_ethanol_20260225_225942', seed=42, work_dir='.', log_dir='./logs', model_dir='/home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942', checkpoints_dir='/home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints', results_dir='/home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942', downloads_dir='./downloads', device='cuda', default_dtype='float32', distributed=False, launcher='slurm', log_level='INFO', plot=True, plot_frequency=0, plot_interaction_e=False, error_table='PerAtomMAE', model='MACE', r_max=5.0, radial_type='bessel', num_radial_basis=8, num_cutoff_basis=5, pair_repulsion=False, distance_transform='None', apply_cutoff=True, use_last_readout_only=False, use_embedding_readout=False, interaction='RealAgnosticResidualInteractionBlock', interaction_first='RealAgnosticResidualInteractionBlock', max_ell=3, correlation=3, use_reduced_cg=False, use_so3=False, use_agnostic_product=False, num_interactions=2, MLP_irreps='16x0e', radial_MLP='[64,64,64]', hidden_irreps='256x0e+256x1o+256x2e+256x3o', edge_irreps=None, num_channels=256, max_L=3, gate='silu', scaling='rms_forces_scaling', avg_num_neighbors=1, compute_avg_num_neighbors=True, compute_stress=False, compute_forces=True, compute_polarizability=<function str2bool at 0x72d5f362c0e0>, compute_atomic_dipole=<function str2bool at 0x72d5f362c0e0>, train_file='/home/kai/Desktop/Onboarding/results/ethanol/train.xyz', valid_file=None, valid_fraction=0.05, test_file='/home/kai/Desktop/Onboarding/results/ethanol/test.xyz', test_dir=None, multi_processed_test=False, num_workers=0, pin_memory=True, atomic_numbers=None, mean=None, std=None, statistics_file=None, les_arguments=None, E0s='average', pseudolabel_replay=False, foundation_filter_elements=True, heads=None, multiheads_finetuning=True, foundation_head=None, weight_pt_head=1.0, real_pt_data_ratio_threshold=0.1, num_samples_pt=10000, force_mh_ft_lr=False, subselect_pt='random', filter_type_pt='none', allow_random_padding_pt=True, pt_train_file=None, pt_valid_file=None, foundation_model_elements=False, keep_isolated_atoms=False, energy_key='energy', forces_key='forces', virials_key='REF_virials', stress_key='REF_stress', dipole_key='dipole', polarizability_key='polarizability', head_key='head', charges_key='REF_charges', elec_temp_key='elec_temp', total_spin_key='total_spin', total_charge_key='total_charge', embedding_specs=None, skip_evaluate_heads='pt_head', loss='weighted', forces_weight=1000.0, swa_forces_weight=1000.0, energy_weight=1.0, swa_energy_weight=1000.0, virials_weight=1.0, swa_virials_weight=10.0, stress_weight=1.0, swa_stress_weight=10.0, dipole_weight=1.0, swa_dipole_weight=1.0, swa_polarizability_weight=1.0, polarizability_weight=1.0, config_type_weights='{"Default":1.0}', huber_delta=0.01, optimizer='adam', beta=0.9, batch_size=5, valid_batch_size=10, lr=0.01, swa_lr=0.001, weight_decay=5e-07, amsgrad=True, scheduler='ReduceLROnPlateau', lr_factor=0.8, scheduler_patience=50, lr_scheduler_gamma=0.9993, swa=True, start_swa=800, lbfgs=False, ema=True, ema_decay=0.99, max_num_epochs=1000, patience=2048, foundation_model=None, foundation_model_readout=True, eval_interval=1, keep_checkpoints=False, save_all_checkpoints=False, restart_latest=False, save_cpu=False, clip_grad=10.0, dry_run=False, enable_cueq=False, only_cueq=False, enable_oeq=False, wandb=False, wandb_dir=None, wandb_project='', wandb_entity='', wandb_name='', wandb_log_hypers=['num_channels', 'max_L', 'correlation', 'lr', 'swa_lr', 'weight_decay', 'batch_size', 'max_num_epochs', 'start_swa', 'energy_weight', 'forces_weight'], key_specification=KeySpecification(info_keys={'energy': 'energy', 'stress': 'REF_stress', 'virials': 'REF_virials', 'dipole': 'dipole', 'head': 'head', 'elec_temp': 'elec_temp', 'total_charge': 'total_charge', 'polarizability': 'polarizability', 'total_spin': 'total_spin'}, arrays_keys={'forces': 'forces', 'charges': 'REF_charges'}))
+2026-02-25 22:59:44.175 INFO: CUDA version: 12.8, CUDA device: 0
+2026-02-25 22:59:44.191 DEBUG: Popen(['git', 'version'], cwd=/home/kai/Desktop/Onboarding, stdin=None, shell=False, universal_newlines=False)
+2026-02-25 22:59:44.193 DEBUG: Popen(['git', 'version'], cwd=/home/kai/Desktop/Onboarding, stdin=None, shell=False, universal_newlines=False)
+2026-02-25 22:59:44.194 DEBUG: sys.platform='linux', git_executable='git'
+2026-02-25 22:59:44.195 DEBUG: Error accessing Git repository: /home/kai/Desktop/Onboarding
+2026-02-25 22:59:44.195 INFO: ===========LOADING INPUT DATA===========
+2026-02-25 22:59:44.195 INFO: Using heads: ['Default']
+2026-02-25 22:59:44.195 INFO: Using the key specifications to parse data:
+2026-02-25 22:59:44.195 INFO: Default: KeySpecification(info_keys={'energy': 'energy', 'stress': 'REF_stress', 'virials': 'REF_virials', 'dipole': 'dipole', 'head': 'head', 'elec_temp': 'elec_temp', 'total_charge': 'total_charge', 'polarizability': 'polarizability', 'total_spin': 'total_spin'}, arrays_keys={'forces': 'forces', 'charges': 'REF_charges'})
+2026-02-25 22:59:44.195 INFO: =============    Processing head Default     ===========
+2026-02-25 22:59:44.195 DEBUG: Loading training file: /home/kai/Desktop/Onboarding/results/ethanol/train.xyz
+2026-02-25 22:59:44.287 WARNING: Since ASE version 3.23.0b1, using energy_key 'energy' is no longer safe when communicating between MACE and ASE. We recommend using a different key, rewriting 'energy' to 'REF_energy'. You need to use --energy_key='REF_energy' to specify the chosen key name.
+2026-02-25 22:59:44.334 WARNING: Since ASE version 3.23.0b1, using forces_key 'forces' is no longer safe when communicating between MACE and ASE. We recommend using a different key, rewriting 'forces' to 'REF_forces'. You need to use --forces_key='REF_forces' to specify the chosen key name.
+2026-02-25 22:59:44.392 INFO: Training set 1/1 [energy: 1000, stress: 0, virials: 0, dipole components: 0, head: 1000, elec_temp: 0, total_charge: 0, polarizability: 0, total_spin: 0, forces: 1000, charges: 0]
+2026-02-25 22:59:44.394 INFO: Total Training set [energy: 1000, stress: 0, virials: 0, dipole components: 0, head: 1000, elec_temp: 0, total_charge: 0, polarizability: 0, total_spin: 0, forces: 1000, charges: 0]
+2026-02-25 22:59:44.394 INFO: No validation set provided, splitting training data instead.
+2026-02-25 22:59:44.394 INFO: Using random 5% of training set for validation with indices saved in: ./valid_indices_42.txt
+2026-02-25 22:59:44.396 INFO: Random Split Training set [energy: 950, stress: 0, virials: 0, dipole components: 0, head: 950, elec_temp: 0, total_charge: 0, polarizability: 0, total_spin: 0, forces: 950, charges: 0]
+2026-02-25 22:59:44.396 INFO: Random Split Validation set [energy: 50, stress: 0, virials: 0, dipole components: 0, head: 50, elec_temp: 0, total_charge: 0, polarizability: 0, total_spin: 0, forces: 50, charges: 0]
+2026-02-25 22:59:44.483 WARNING: Since ASE version 3.23.0b1, using energy_key 'energy' is no longer safe when communicating between MACE and ASE. We recommend using a different key, rewriting 'energy' to 'REF_energy'. You need to use --energy_key='REF_energy' to specify the chosen key name.
+2026-02-25 22:59:44.530 WARNING: Since ASE version 3.23.0b1, using forces_key 'forces' is no longer safe when communicating between MACE and ASE. We recommend using a different key, rewriting 'forces' to 'REF_forces'. You need to use --forces_key='REF_forces' to specify the chosen key name.
+2026-02-25 22:59:44.588 INFO: Test set 1/1 [energy: 1000, stress: 0, virials: 0, dipole components: 0, head: 1000, elec_temp: 0, total_charge: 0, polarizability: 0, total_spin: 0, forces: 1000, charges: 0]
+2026-02-25 22:59:44.590 INFO: Total Test set [energy: 1000, stress: 0, virials: 0, dipole components: 0, head: 1000, elec_temp: 0, total_charge: 0, polarizability: 0, total_spin: 0, forces: 1000, charges: 0]
+2026-02-25 22:59:44.590 INFO: Total number of configurations: train=950, valid=50, tests=[test_Default: 1000],
+2026-02-25 22:59:44.591 INFO: Atomic Numbers used: [np.int64(1), np.int64(6), np.int64(8)]
+2026-02-25 22:59:44.591 INFO: Isolated Atomic Energies (E0s) not in training file, using command line argument
+2026-02-25 22:59:44.591 INFO: Computing average Atomic Energies using least squares regression
+2026-02-25 22:59:44.594 INFO: Atomic Energies used (z: eV) for head Default: {1: -616.0425270290132, 6: -205.3475090096689, 8: -102.67375450483445}
+2026-02-25 22:59:44.594 INFO: Processing datasets for head 'Default'
+2026-02-25 22:59:44.750 DEBUG: Successfully loaded dataset from ASE files: ['/home/kai/Desktop/Onboarding/results/ethanol/train.xyz']
+2026-02-25 22:59:44.750 INFO: Combining 1 list datasets for head 'Default'
+2026-02-25 22:59:44.759 INFO: Head 'Default' training dataset size: 950
+2026-02-25 22:59:44.759 INFO: Computing average number of neighbors
+2026-02-25 22:59:45.019 INFO: Average number of neighbors: 8.0
+2026-02-25 22:59:45.019 INFO: During training the following quantities will be reported: energy, forces
+2026-02-25 22:59:45.019 INFO: ===========MODEL DETAILS===========
+2026-02-25 22:59:45.177 INFO: Building model
+2026-02-25 22:59:45.177 INFO: Message passing with 256 channels and max_L=3 (256x0e+256x1o+256x2e+256x3o)
+2026-02-25 22:59:45.177 INFO: 2 layers, each with correlation order: 3 (body order: 4) and spherical harmonics up to: l=3
+2026-02-25 22:59:45.177 INFO: 8 radial and 5 basis functions
+2026-02-25 22:59:45.177 INFO: Radial cutoff: 5.0 A (total receptive field for each atom: 10.0 A)
+2026-02-25 22:59:45.177 INFO: Distance transform for radial basis functions: None
+2026-02-25 22:59:45.177 INFO: Hidden irreps: 256x0e+256x1o+256x2e+256x3o
+2026-02-25 22:59:46.001 DEBUG: ScaleShiftMACE(
+  (node_embedding): LinearNodeEmbeddingBlock(
+    (linear): Linear(3x0e -> 256x0e | 768 weights)
+  )
+  (radial_embedding): RadialEmbeddingBlock(
+    (bessel_fn): BesselBasis(r_max=5.0, num_basis=8, trainable=False)
+    (cutoff_fn): PolynomialCutoff(p=5, r_max=5.0)
+  )
+  (spherical_harmonics): SphericalHarmonics()
+  (atomic_energies_fn): AtomicEnergiesBlock(energies=[[-616.0425, -205.3475, -102.6738]])
+  (interactions): ModuleList(
+    (0): RealAgnosticInteractionBlock(
+      (linear_up): Linear(256x0e -> 256x0e | 65536 weights)
+      (conv_tp): TensorProduct(256x0e x 1x0e+1x1o+1x2e+1x3o -> 256x0e+256x1o+256x2e+256x3o | 1024 paths | 1024 weights)
+      (conv_tp_weights): FullyConnectedNet[8, 64, 64, 64, 1024]
+      (linear): Linear(256x0e+256x1o+256x2e+256x3o -> 256x0e+256x1o+256x2e+256x3o | 262144 weights)
+      (skip_tp): FullyConnectedTensorProduct(256x0e+256x1o+256x2e+256x3o x 3x0e -> 256x0e+256x1o+256x2e+256x3o | 786432 paths | 786432 weights)
+      (reshape): reshape_irreps()
+    )
+    (1): RealAgnosticResidualInteractionBlock(
+      (linear_up): Linear(256x0e+256x1o+256x2e+256x3o -> 256x0e+256x1o+256x2e+256x3o | 262144 weights)
+      (conv_tp): TensorProduct(256x0e+256x1o+256x2e+256x3o x 1x0e+1x1o+1x2e+1x3o -> 1024x0e+1536x1o+1792x2e+1536x3o | 5888 paths | 5888 weights)
+      (conv_tp_weights): FullyConnectedNet[8, 64, 64, 64, 5888]
+      (linear): Linear(256x0e+256x0e+256x0e+256x0e+256x1o+256x1o+256x1o+256x1o+256x1o+256x1o+256x2e+256x2e+256x2e+256x2e+256x2e+256x2e+256x2e+256x3o+256x3o+256x3o+256x3o+256x3o+256x3o -> 256x0e+256x1o+256x2e+256x3o | 1507328 weights)
+      (skip_tp): FullyConnectedTensorProduct(256x0e+256x1o+256x2e+256x3o x 3x0e -> 256x0e | 196608 paths | 196608 weights)
+      (reshape): reshape_irreps()
+    )
+  )
+  (products): ModuleList(
+    (0): EquivariantProductBasisBlock(
+      (symmetric_contractions): SymmetricContraction(
+        (contractions): ModuleList(
+          (0): Contraction(
+            (contractions_weighting): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (contractions_features): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (weights): ParameterList(
+                (0): Parameter containing: [torch.float32 of size 3x4x256 (cuda:0)]
+                (1): Parameter containing: [torch.float32 of size 3x1x256 (cuda:0)]
+            )
+            (graph_opt_main): GraphModule()
+          )
+          (1): Contraction(
+            (contractions_weighting): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (contractions_features): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (weights): ParameterList(
+                (0): Parameter containing: [torch.float32 of size 3x6x256 (cuda:0)]
+                (1): Parameter containing: [torch.float32 of size 3x1x256 (cuda:0)]
+            )
+            (graph_opt_main): GraphModule()
+          )
+          (2): Contraction(
+            (contractions_weighting): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (contractions_features): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (weights): ParameterList(
+                (0): Parameter containing: [torch.float32 of size 3x7x256 (cuda:0)]
+                (1): Parameter containing: [torch.float32 of size 3x1x256 (cuda:0)]
+            )
+            (graph_opt_main): GraphModule()
+          )
+          (3): Contraction(
+            (contractions_weighting): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (contractions_features): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (weights): ParameterList(
+                (0): Parameter containing: [torch.float32 of size 3x6x256 (cuda:0)]
+                (1): Parameter containing: [torch.float32 of size 3x1x256 (cuda:0)]
+            )
+            (graph_opt_main): GraphModule()
+          )
+        )
+      )
+      (linear): Linear(256x0e+256x1o+256x2e+256x3o -> 256x0e+256x1o+256x2e+256x3o | 262144 weights)
+    )
+    (1): EquivariantProductBasisBlock(
+      (symmetric_contractions): SymmetricContraction(
+        (contractions): ModuleList(
+          (0): Contraction(
+            (contractions_weighting): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (contractions_features): ModuleList(
+              (0-1): 2 x GraphModule()
+            )
+            (weights): ParameterList(
+                (0): Parameter containing: [torch.float32 of size 3x4x256 (cuda:0)]
+                (1): Parameter containing: [torch.float32 of size 3x1x256 (cuda:0)]
+            )
+            (graph_opt_main): GraphModule()
+          )
+        )
+      )
+      (linear): Linear(256x0e -> 256x0e | 65536 weights)
+    )
+  )
+  (readouts): ModuleList(
+    (0): LinearReadoutBlock(
+      (linear): Linear(256x0e+256x1o+256x2e+256x3o -> 1x0e | 256 weights)
+    )
+    (1): NonLinearReadoutBlock(
+      (linear_1): Linear(256x0e -> 16x0e | 4096 weights)
+      (non_linearity): Activation [x] (16x0e -> 16x0e)
+      (linear_2): Linear(16x0e -> 1x0e | 16 weights)
+    )
+  )
+  (scale_shift): ScaleShiftBlock(scale=1.1942, shift=0.0000)
+)
+2026-02-25 22:59:46.002 INFO: Total number of parameters: 4071696
+2026-02-25 22:59:46.002 INFO: 
+2026-02-25 22:59:46.002 INFO: ===========OPTIMIZER INFORMATION===========
+2026-02-25 22:59:46.002 INFO: Using ADAM as parameter optimizer
+2026-02-25 22:59:46.002 INFO: Batch size: 5
+2026-02-25 22:59:46.002 INFO: Using Exponential Moving Average with decay: 0.99
+2026-02-25 22:59:46.002 INFO: Number of gradient updates: 190000
+2026-02-25 22:59:46.002 INFO: Learning rate: 0.01, weight decay: 5e-07
+2026-02-25 22:59:46.002 INFO: WeightedEnergyForcesLoss(energy_weight=1.000, forces_weight=1000.000)
+2026-02-25 22:59:46.002 INFO: Stage Two (after 800 epochs) with loss function: WeightedEnergyForcesLoss(energy_weight=1000.000, forces_weight=1000.000), with energy weight : 1000.0, forces weight : 1000.0 and learning rate : 0.001
+2026-02-25 22:59:46.187 INFO: Using gradient clipping with tolerance=10.000
+2026-02-25 22:59:46.187 INFO: 
+2026-02-25 22:59:46.187 INFO: ===========TRAINING===========
+2026-02-25 22:59:46.187 INFO: Started training, reporting errors on validation set
+2026-02-25 22:59:46.187 INFO: Loss metrics on validation set
+2026-02-25 22:59:47.388 INFO: Initial: head: Default, loss=149.04780579, MAE_E_per_atom=   21.09 meV, MAE_F=  911.10 meV / A
+2026-02-25 22:59:57.843 INFO: Epoch 0: head: Default, loss=0.65346110, MAE_E_per_atom=  551.00 meV, MAE_F=   58.68 meV / A
+2026-02-25 22:59:57.844 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-0.pt
+2026-02-25 23:00:07.203 INFO: Epoch 1: head: Default, loss=0.35248059, MAE_E_per_atom=  522.15 meV, MAE_F=   40.70 meV / A
+2026-02-25 23:00:07.204 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-0.pt
+2026-02-25 23:00:07.216 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-1.pt
+2026-02-25 23:00:16.702 INFO: Epoch 2: head: Default, loss=0.25999150, MAE_E_per_atom=  522.17 meV, MAE_F=   35.01 meV / A
+2026-02-25 23:00:16.703 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-1.pt
+2026-02-25 23:00:16.716 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-2.pt
+2026-02-25 23:00:25.899 INFO: Epoch 3: head: Default, loss=0.19315806, MAE_E_per_atom=  506.50 meV, MAE_F=   29.37 meV / A
+2026-02-25 23:00:25.900 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-2.pt
+2026-02-25 23:00:25.913 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-3.pt
+2026-02-25 23:00:35.318 INFO: Epoch 4: head: Default, loss=0.16151093, MAE_E_per_atom=  480.75 meV, MAE_F=   26.39 meV / A
+2026-02-25 23:00:35.319 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-3.pt
+2026-02-25 23:00:35.332 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-4.pt
+2026-02-25 23:00:44.643 INFO: Epoch 5: head: Default, loss=0.13598825, MAE_E_per_atom=  456.80 meV, MAE_F=   24.16 meV / A
+2026-02-25 23:00:44.644 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-4.pt
+2026-02-25 23:00:44.656 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-5.pt
+2026-02-25 23:00:53.955 INFO: Epoch 6: head: Default, loss=0.12950864, MAE_E_per_atom=  453.18 meV, MAE_F=   23.22 meV / A
+2026-02-25 23:00:53.956 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-5.pt
+2026-02-25 23:00:53.969 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-6.pt
+2026-02-25 23:01:03.267 INFO: Epoch 7: head: Default, loss=0.11597864, MAE_E_per_atom=  440.98 meV, MAE_F=   21.67 meV / A
+2026-02-25 23:01:03.268 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-6.pt
+2026-02-25 23:01:03.282 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-7.pt
+2026-02-25 23:01:12.595 INFO: Epoch 8: head: Default, loss=0.10978395, MAE_E_per_atom=  436.44 meV, MAE_F=   20.69 meV / A
+2026-02-25 23:01:12.596 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-7.pt
+2026-02-25 23:01:12.609 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-8.pt
+2026-02-25 23:01:21.964 INFO: Epoch 9: head: Default, loss=0.09573473, MAE_E_per_atom=  427.59 meV, MAE_F=   19.15 meV / A
+2026-02-25 23:01:21.965 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-8.pt
+2026-02-25 23:01:21.979 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-9.pt
+2026-02-25 23:01:31.384 INFO: Epoch 10: head: Default, loss=0.08226252, MAE_E_per_atom=  416.61 meV, MAE_F=   17.72 meV / A
+2026-02-25 23:01:31.385 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-9.pt
+2026-02-25 23:01:31.398 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-10.pt
+2026-02-25 23:01:40.731 INFO: Epoch 11: head: Default, loss=0.07366078, MAE_E_per_atom=  394.06 meV, MAE_F=   16.71 meV / A
+2026-02-25 23:01:40.732 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-10.pt
+2026-02-25 23:01:40.746 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-11.pt
+2026-02-25 23:01:50.153 INFO: Epoch 12: head: Default, loss=0.08099934, MAE_E_per_atom=  394.21 meV, MAE_F=   17.70 meV / A
+2026-02-25 23:01:59.347 INFO: Epoch 13: head: Default, loss=0.06579481, MAE_E_per_atom=  389.07 meV, MAE_F=   15.83 meV / A
+2026-02-25 23:01:59.348 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-11.pt
+2026-02-25 23:01:59.362 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-13.pt
+2026-02-25 23:02:08.592 INFO: Epoch 14: head: Default, loss=0.06177331, MAE_E_per_atom=  380.02 meV, MAE_F=   15.51 meV / A
+2026-02-25 23:02:08.593 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-13.pt
+2026-02-25 23:02:08.607 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-14.pt
+2026-02-25 23:02:18.027 INFO: Epoch 15: head: Default, loss=0.05830142, MAE_E_per_atom=  374.52 meV, MAE_F=   14.57 meV / A
+2026-02-25 23:02:18.028 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-14.pt
+2026-02-25 23:02:18.043 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-15.pt
+2026-02-25 23:02:27.312 INFO: Epoch 16: head: Default, loss=0.05874760, MAE_E_per_atom=  367.27 meV, MAE_F=   14.67 meV / A
+2026-02-25 23:02:36.726 INFO: Epoch 17: head: Default, loss=0.04981312, MAE_E_per_atom=  350.67 meV, MAE_F=   13.56 meV / A
+2026-02-25 23:02:36.727 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-15.pt
+2026-02-25 23:02:36.740 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-17.pt
+2026-02-25 23:02:46.246 INFO: Epoch 18: head: Default, loss=0.04444168, MAE_E_per_atom=  331.91 meV, MAE_F=   12.73 meV / A
+2026-02-25 23:02:46.248 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-17.pt
+2026-02-25 23:02:46.261 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-18.pt
+2026-02-25 23:02:55.593 INFO: Epoch 19: head: Default, loss=0.04348315, MAE_E_per_atom=  320.80 meV, MAE_F=   12.48 meV / A
+2026-02-25 23:02:55.595 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-18.pt
+2026-02-25 23:02:55.609 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-19.pt
+2026-02-25 23:03:04.846 INFO: Epoch 20: head: Default, loss=0.04185614, MAE_E_per_atom=  317.06 meV, MAE_F=   12.31 meV / A
+2026-02-25 23:03:04.847 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-19.pt
+2026-02-25 23:03:04.860 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-20.pt
+2026-02-25 23:03:14.255 INFO: Epoch 21: head: Default, loss=0.04012507, MAE_E_per_atom=  304.61 meV, MAE_F=   12.21 meV / A
+2026-02-25 23:03:14.256 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-20.pt
+2026-02-25 23:03:14.270 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-21.pt
+2026-02-25 23:03:23.590 INFO: Epoch 22: head: Default, loss=0.04503989, MAE_E_per_atom=  310.55 meV, MAE_F=   13.10 meV / A
+2026-02-25 23:03:32.784 INFO: Epoch 23: head: Default, loss=0.03980792, MAE_E_per_atom=  294.71 meV, MAE_F=   12.42 meV / A
+2026-02-25 23:03:32.785 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-21.pt
+2026-02-25 23:03:32.799 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-23.pt
+2026-02-25 23:03:42.057 INFO: Epoch 24: head: Default, loss=0.03850066, MAE_E_per_atom=  294.72 meV, MAE_F=   11.92 meV / A
+2026-02-25 23:03:42.058 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-23.pt
+2026-02-25 23:03:42.073 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-24.pt
+2026-02-25 23:03:51.419 INFO: Epoch 25: head: Default, loss=0.03573740, MAE_E_per_atom=  276.17 meV, MAE_F=   11.45 meV / A
+2026-02-25 23:03:51.420 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-24.pt
+2026-02-25 23:03:51.435 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-25.pt
+2026-02-25 23:04:00.721 INFO: Epoch 26: head: Default, loss=0.03250246, MAE_E_per_atom=  259.32 meV, MAE_F=   11.08 meV / A
+2026-02-25 23:04:00.721 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-25.pt
+2026-02-25 23:04:00.736 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-26.pt
+2026-02-25 23:04:10.196 INFO: Epoch 27: head: Default, loss=0.03126763, MAE_E_per_atom=  245.00 meV, MAE_F=   11.07 meV / A
+2026-02-25 23:04:10.197 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-26.pt
+2026-02-25 23:04:10.211 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-27.pt
+2026-02-25 23:04:19.601 INFO: Epoch 28: head: Default, loss=0.03227616, MAE_E_per_atom=  256.45 meV, MAE_F=   11.04 meV / A
+2026-02-25 23:04:28.812 INFO: Epoch 29: head: Default, loss=0.03007373, MAE_E_per_atom=  245.90 meV, MAE_F=   10.91 meV / A
+2026-02-25 23:04:28.813 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-27.pt
+2026-02-25 23:04:28.828 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-29.pt
+2026-02-25 23:04:38.126 INFO: Epoch 30: head: Default, loss=0.02862459, MAE_E_per_atom=  237.22 meV, MAE_F=   10.73 meV / A
+2026-02-25 23:04:38.127 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-29.pt
+2026-02-25 23:04:38.140 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-30.pt
+2026-02-25 23:04:47.693 INFO: Epoch 31: head: Default, loss=0.02713211, MAE_E_per_atom=  225.33 meV, MAE_F=   10.29 meV / A
+2026-02-25 23:04:47.694 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-30.pt
+2026-02-25 23:04:47.709 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-31.pt
+2026-02-25 23:04:57.101 INFO: Epoch 32: head: Default, loss=0.02688101, MAE_E_per_atom=  208.16 meV, MAE_F=   10.23 meV / A
+2026-02-25 23:04:57.102 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-31.pt
+2026-02-25 23:04:57.116 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-32.pt
+2026-02-25 23:05:06.641 INFO: Epoch 33: head: Default, loss=0.02515629, MAE_E_per_atom=  198.94 meV, MAE_F=    9.96 meV / A
+2026-02-25 23:05:06.642 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-32.pt
+2026-02-25 23:05:06.655 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-33.pt
+2026-02-25 23:05:16.019 INFO: Epoch 34: head: Default, loss=0.02662602, MAE_E_per_atom=  197.91 meV, MAE_F=   10.41 meV / A
+2026-02-25 23:05:25.354 INFO: Epoch 35: head: Default, loss=0.02657122, MAE_E_per_atom=  200.14 meV, MAE_F=   10.36 meV / A
+2026-02-25 23:05:34.837 INFO: Epoch 36: head: Default, loss=0.02677156, MAE_E_per_atom=  210.05 meV, MAE_F=   10.31 meV / A
+2026-02-25 23:05:44.311 INFO: Epoch 37: head: Default, loss=0.02389410, MAE_E_per_atom=  210.48 meV, MAE_F=    9.66 meV / A
+2026-02-25 23:05:44.312 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-33.pt
+2026-02-25 23:05:44.325 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-37.pt
+2026-02-25 23:05:53.587 INFO: Epoch 38: head: Default, loss=0.02160472, MAE_E_per_atom=  194.56 meV, MAE_F=    9.40 meV / A
+2026-02-25 23:05:53.588 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-37.pt
+2026-02-25 23:05:53.602 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-38.pt
+2026-02-25 23:06:03.053 INFO: Epoch 39: head: Default, loss=0.02196974, MAE_E_per_atom=  173.62 meV, MAE_F=    9.81 meV / A
+2026-02-25 23:06:12.423 INFO: Epoch 40: head: Default, loss=0.02175443, MAE_E_per_atom=  175.12 meV, MAE_F=    9.79 meV / A
+2026-02-25 23:06:21.749 INFO: Epoch 41: head: Default, loss=0.02211771, MAE_E_per_atom=  169.42 meV, MAE_F=    9.52 meV / A
+2026-02-25 23:06:30.979 INFO: Epoch 42: head: Default, loss=0.02087043, MAE_E_per_atom=  158.37 meV, MAE_F=    9.30 meV / A
+2026-02-25 23:06:30.980 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-38.pt
+2026-02-25 23:06:30.992 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-42.pt
+2026-02-25 23:06:40.402 INFO: Epoch 43: head: Default, loss=0.02056068, MAE_E_per_atom=  158.20 meV, MAE_F=    9.10 meV / A
+2026-02-25 23:06:40.403 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-42.pt
+2026-02-25 23:06:40.417 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-43.pt
+2026-02-25 23:06:49.742 INFO: Epoch 44: head: Default, loss=0.02105612, MAE_E_per_atom=  154.58 meV, MAE_F=    9.36 meV / A
+2026-02-25 23:06:59.001 INFO: Epoch 45: head: Default, loss=0.02031204, MAE_E_per_atom=  152.14 meV, MAE_F=    9.09 meV / A
+2026-02-25 23:06:59.002 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-43.pt
+2026-02-25 23:06:59.015 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-45.pt
+2026-02-25 23:07:08.377 INFO: Epoch 46: head: Default, loss=0.01942556, MAE_E_per_atom=  145.34 meV, MAE_F=    9.02 meV / A
+2026-02-25 23:07:08.378 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-45.pt
+2026-02-25 23:07:08.392 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-46.pt
+2026-02-25 23:07:17.684 INFO: Epoch 47: head: Default, loss=0.02006092, MAE_E_per_atom=  155.78 meV, MAE_F=    9.07 meV / A
+2026-02-25 23:07:26.962 INFO: Epoch 48: head: Default, loss=0.01891894, MAE_E_per_atom=  141.07 meV, MAE_F=    8.93 meV / A
+2026-02-25 23:07:26.963 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-46.pt
+2026-02-25 23:07:26.977 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-48.pt
+2026-02-25 23:07:36.294 INFO: Epoch 49: head: Default, loss=0.01752781, MAE_E_per_atom=  132.40 meV, MAE_F=    8.52 meV / A
+2026-02-25 23:07:36.294 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-48.pt
+2026-02-25 23:07:36.308 DEBUG: Saving checkpoint: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-49.pt
+2026-02-25 23:07:45.610 INFO: Epoch 50: head: Default, loss=0.01773064, MAE_E_per_atom=  133.37 meV, MAE_F=    8.76 meV / A
+2026-02-25 23:07:54.825 INFO: Epoch 51: head: Default, loss=0.01769161, MAE_E_per_atom=  137.66 meV, MAE_F=    8.52 meV / A
+2026-02-25 23:08:03.681 INFO: Epoch 52: head: Default, loss=0.01779259, MAE_E_per_atom=  126.88 meV, MAE_F=    8.75 meV / A
+2026-02-25 23:08:10.796 INFO: Epoch 53: head: Default, loss=0.01786498, MAE_E_per_atom=  124.73 meV, MAE_F=    8.94 meV / A
+2026-02-25 23:08:17.890 INFO: Epoch 54: head: Default, loss=0.01749714, MAE_E_per_atom=  116.26 meV, MAE_F=    8.78 meV / A
+2026-02-25 23:08:17.891 DEBUG: Deleting old checkpoint file: /home/kai/Desktop/Onboarding/results/ethanol/run_20260225_225942/checkpoints/MACE_ethanol_20260225_225942_run-42_epoch-49.pt
