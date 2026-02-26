@@ -8,7 +8,7 @@ import numpy as np
 from pathlib import Path
 
 # Log file path
-log_file = Path("/home/kai/Desktop/Onboarding/results/ethanol/run_20260225_104639/MACE_ethanol_20260225_104639_run-42_train.txt")
+log_file = Path("/home/kai/Desktop/mace-rmd17-benchmark/results/ethanol/run_ch256_20260225_232139/MACE_ethanol_ch256_20260225_232139_run-42_train.txt")
 
 # Parse log file
 epochs = []
@@ -57,21 +57,21 @@ ax1.legend()
 
 # 2. Energy MAE
 ax2 = axes[0, 1]
-ax2.plot(epochs, mae_e_per_atom, 'g-', linewidth=1)
+ax2.plot(epochs, mae_e_per_atom, 'g-', linewidth=1, label='Validation')
 ax2.axhline(y=0.4/9, color='r', linestyle='--', alpha=0.7, label=f'Paper target (0.044 meV/atom)')
 ax2.set_xlabel('Epoch')
 ax2.set_ylabel('Energy MAE (meV/atom)')
-ax2.set_title('Energy MAE per Atom')
+ax2.set_title('Energy MAE per Atom (Validation)')
 ax2.grid(True, alpha=0.3)
 ax2.legend()
 
 # 3. Forces MAE
 ax3 = axes[1, 0]
-ax3.plot(epochs, mae_f, 'orange', linewidth=1)
+ax3.plot(epochs, mae_f, 'orange', linewidth=1, label='Validation')
 ax3.axhline(y=2.1, color='r', linestyle='--', alpha=0.7, label='Paper target (2.1 meV/Å)')
 ax3.set_xlabel('Epoch')
 ax3.set_ylabel('Forces MAE (meV/Å)')
-ax3.set_title('Forces MAE')
+ax3.set_title('Forces MAE (Validation)')
 ax3.grid(True, alpha=0.3)
 ax3.legend()
 
@@ -79,20 +79,50 @@ ax3.legend()
 ax4 = axes[1, 1]
 ax4.axis('off')
 
+# Read test results from log file
+# log_file: .../results/ethanol/run_ch256_.../MACE_ethanol_ch256_..._run-42_train.txt
+# log_path: .../logs/MACE_ethanol_ch256_..._run-42.log
+log_name = log_file.stem.replace('_train', '')  # MACE_ethanol_ch256_..._run-42
+log_path = Path("/home/kai/Desktop/mace-rmd17-benchmark/logs") / f"{log_name}.log"
+test_energy_mae = None
+test_forces_mae = None
+print(f"Looking for log at: {log_path}")
+if log_path.exists():
+    with open(log_path, 'r') as f:
+        content = f.read()
+        # Find the Stage Two test results (last test table)
+        import re
+        # Look for test_Default results: | test_Default |           0.1      |          3.3    |
+        matches = re.findall(r'\| test_Default \|[\s]+([\d.]+)[\s]+\|[\s]+([\d.]+)[\s]+\|', content)
+        print(f"Found {len(matches)} test results")
+        if matches:
+            test_energy_mae = float(matches[-1][0])  # Last one is Stage Two
+            test_forces_mae = float(matches[-1][1])
+
+# Ethanol has 9 atoms
+n_atoms = 9
+
 # Results table
 results_text = f"""
 Final Results (Epoch {epochs[-1]:.0f})
 {'='*40}
 
-Energy MAE (per atom):  {mae_e_per_atom[-1]:.4f} meV
-Energy MAE (total):     {mae_e_per_atom[-1]*9:.4f} meV
-Paper target:           0.4 meV
+VALIDATION:
+  Energy MAE (per atom):  {mae_e_per_atom[-1]:.4f} meV
+  Forces MAE:             {mae_f[-1]:.2f} meV/Å
 
-Forces MAE:             {mae_f[-1]:.2f} meV/Å
-Paper target:           2.1 meV/Å
+TEST (Stage Two):
+  Energy MAE (per atom):  {test_energy_mae if test_energy_mae else 'N/A'} meV
+  Energy MAE (total):     {test_energy_mae * n_atoms:.1f} meV
+  Forces MAE:             {test_forces_mae if test_forces_mae else 'N/A'} meV/Å
+
+Paper Target (Ethanol):
+  Energy MAE:             0.4 meV (total)
+  Forces MAE:             2.1 meV/Å
 
 {'='*40}
-Model: MACE (128x0e+128x1o+128x2e, 2 layers, correlation=3)
+Model: MACE (256x0e+256x1o+256x2e+256x3o)
+       2 layers, correlation=3
 Dataset: rMD17 Ethanol (950 train, 50 valid)
 """
 
@@ -103,7 +133,7 @@ ax4.text(0.1, 0.5, results_text, transform=ax4.transAxes, fontsize=12,
 plt.tight_layout()
 
 # Save figure
-output_path = Path("/home/kai/Desktop/Onboarding/results/ethanol/run_20260225_104639/training_curves.png")
+output_path = Path("/home/kai/Desktop/mace-rmd17-benchmark/results/ethanol/run_ch256_20260225_232139/training_curves.png")
 plt.savefig(output_path, dpi=150, bbox_inches='tight')
 print(f"\nFigure saved to: {output_path}")
 

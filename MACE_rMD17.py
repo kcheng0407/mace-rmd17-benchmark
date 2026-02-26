@@ -270,13 +270,19 @@ def train_single_molecule(molecule_name, split_idx=1, device="cuda", channels=12
     return result.returncode == 0
 
 
-def train_all_molecules(split_idx=1, device="cuda"):
-    """Train MACE on all rMD17 molecules."""
+def train_all_molecules(split_idx=1, device="cuda", channels=128):
+    """Train MACE on all rMD17 molecules.
+    
+    Args:
+        split_idx: Which train/test split to use (1-5)
+        device: cuda or cpu
+        channels: Number of channels per L level (128 or 256)
+    """
     
     results = {}
     
     for molecule in MOLECULES:
-        success = train_single_molecule(molecule, split_idx, device)
+        success = train_single_molecule(molecule, split_idx, device, channels)
         results[molecule] = "Success" if success else "Failed"
     
     # Print summary
@@ -361,4 +367,4 @@ if __name__ == "__main__":
     elif args.molecule:
         train_single_molecule(args.molecule, args.split, args.device, args.channels)
     else:
-        train_all_molecules(args.split, args.device)
+        train_all_molecules(args.split, args.device, args.channels)
