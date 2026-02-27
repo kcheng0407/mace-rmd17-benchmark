@@ -49,11 +49,14 @@ data/rmd17/
 checkpoints/
 *.model
 
-# Results (can be regenerated)
+# Results (can be regenerated, too large for git)
 results/
 
-# Logs
+# Logs (raw, too large for git)
 logs/
+
+# Summary is lightweight and safe for git
+!summary/
 
 # OS
 .DS_Store

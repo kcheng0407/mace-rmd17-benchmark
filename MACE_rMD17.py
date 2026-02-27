@@ -21,7 +21,7 @@ from datetime import datetime
 from ase import Atoms
 from ase.io import write
 
-# Configuration
+# Config
 DATA_DIR = Path("/home/kai/Desktop/mace-rmd17-benchmark/data/rmd17")
 OUTPUT_DIR = Path("/home/kai/Desktop/mace-rmd17-benchmark/results")
 NPZ_DIR = DATA_DIR / "npz_data"
@@ -48,15 +48,8 @@ Z_TO_SYMBOL = {
 
 # Training configuration (following MACE paper Appendix A.5.1)
 # Paper: 950 training, 50 validation from 1000 total
-# Paper settings:
-#   - 256 uncoupled channels (hidden_irreps='256x0e')
-#   - lmax=3 (spherical harmonics)
-#   - correlation=3 (body order 4)
-#   - batch_size=5
-#   - λE=1, λF=1000
-#   - float32 precision
-TRAIN_SIZE = 1000  # As per rMD17 recommendation
-SPLIT_INDEX = 1    # Use split 01 (can be 1-5)
+TRAIN_SIZE = 1000  
+SPLIT_INDEX = 1    # Use split 1 (can be 1-5)
 
 
 def load_npz_data(molecule_name):
@@ -161,9 +154,8 @@ def get_mace_training_command(molecule_name, train_path, test_path, output_dir, 
     - float32 precision
     
     Args:
-        channels: Number of channels per L level (default: 128)
+        channels: Number of channels per L level (default: 256)
     """
-    # 加入時間戳讓每次執行的 log 獨立
     if timestamp is None:
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
@@ -177,52 +169,35 @@ def get_mace_training_command(molecule_name, train_path, test_path, output_dir, 
         f"--results_dir={output_dir}",
         f"--checkpoints_dir={output_dir}/checkpoints",
         f"--model_dir={output_dir}",
-        # Paper: 950 train, 50 valid from 1000 total
         "--valid_fraction=0.05",
         "--model=MACE",
-        # Paper: 2 layers
         "--num_interactions=2",
-        # L=3 equivariant features with configurable channels
         f"--hidden_irreps={channels}x0e+{channels}x1o+{channels}x2e+{channels}x3o",
-        # Paper: correlation order 3 (body order 4)
         "--correlation=3",
-        # Paper: spherical harmonics up to l=3
         "--max_ell=3",
-        # Paper: 5 Å cutoff
         "--r_max=5.0",
-        # Paper: 8 Bessel basis, polynomial envelope p=5
         "--num_radial_basis=8",
         "--num_cutoff_basis=5",
-        # Paper: radial MLP [64, 64, 64, 1024] - but last 1024 is internal
         "--radial_MLP=[64,64,64]",
-        # Paper: batch size 5
         "--batch_size=5",
         "--max_num_epochs=1000",
-        # Paper: Stage Two (SWA) enabled
         "--stage_two",
         "--start_stage_two=800",
-        # Paper: EMA with 0.99 decay
         "--ema",
         "--ema_decay=0.99",
-        # Paper: AMSGrad optimizer
         "--amsgrad",
-        # Paper: float32 precision for rMD17
         "--default_dtype=float32",
         "--device=cuda",
         "--seed=42",
         "--energy_key=energy",
         "--forces_key=forces",
         "--E0s=average",
-        # Paper: learning rate 0.01
         "--lr=0.01",
         "--scheduler_patience=50",
-        # Paper: λE=1, λF=1000
         "--energy_weight=1.0",
         "--forces_weight=1000.0",
-        # Stage Two: λE=1000, λF=1000 (論文維持 forces_weight=1000)
         "--swa_energy_weight=1000.0",
         "--swa_forces_weight=1000.0",
-        # Paper reports MAE
         "--error_table=PerAtomMAE",
     ]
     
@@ -238,21 +213,14 @@ def train_single_molecule(molecule_name, split_idx=1, device="cuda", channels=12
         device: cuda or cpu
         channels: Number of channels per L level (128 or 256)
     """
-    
-    # 生成時間戳，讓每次執行獨立
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     # Create XYZ datasets
     mol_dir, train_path, test_path = create_xyz_dataset(molecule_name, split_idx)
-    
-    # 建立本次執行的獨立目錄
+
     run_dir = mol_dir / f"run_ch{channels}_{timestamp}"
     run_dir.mkdir(parents=True, exist_ok=True)
-    
-    # Generate training command with timestamp and channels
     cmd = get_mace_training_command(molecule_name, train_path, test_path, run_dir, timestamp, channels)
-    
-    # Update device
     cmd = [c if not c.startswith("--device=") else f"--device={device}" for c in cmd]
     
     print(f"\n{'='*60}")
@@ -314,11 +282,18 @@ def prepare_all_datasets(split_idx=1):
     print("="*60)
 
 
-def generate_training_script(molecule_name, split_idx=1, device="cuda"):
-    """Generate a bash script for training a single molecule."""
+def generate_training_script(molecule_name, split_idx=1, device="cuda", channels=128):
+    """Generate a bash script for training a single molecule.
+    
+    Args:
+        molecule_name: Name of the molecule
+        split_idx: Which train/test split to use (1-5)
+        device: cuda or cpu
+        channels: Number of channels per L level (128 or 256)
+    """
     
     mol_dir, train_path, test_path = create_xyz_dataset(molecule_name, split_idx)
-    cmd = get_mace_training_command(molecule_name, train_path, test_path, mol_dir)
+    cmd = get_mace_training_command(molecule_name, train_path, test_path, mol_dir, channels=channels)
     cmd = [c if not c.startswith("--device=") else f"--device={device}" for c in cmd]
     
     script_content = "#!/bin/bash\n\n"
@@ -360,10 +335,10 @@ if __name__ == "__main__":
         prepare_all_datasets(args.split)
     elif args.generate_scripts:
         if args.molecule:
-            generate_training_script(args.molecule, args.split, args.device)
+            generate_training_script(args.molecule, args.split, args.device, args.channels)
         else:
             for mol in MOLECULES:
-                generate_training_script(mol, args.split, args.device)
+                generate_training_script(mol, args.split, args.device, args.channels)
     elif args.molecule:
         train_single_molecule(args.molecule, args.split, args.device, args.channels)
     else:
